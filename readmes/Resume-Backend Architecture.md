@@ -39,6 +39,11 @@
   - Mayores costos operativos en cuanto a recursos humanos (capacidad técnica)
   - Mayores costos de mantenimiento y despliegue
 
+## MONOLITO VS MICROSERVICIOS
+<p align="center">
+<img src="./assets/resumen monolito-microservicios.png">
+</p>
+
 ## ESCALABILIDAD
 
 ### ESCALABILIDAD VERTICAL
@@ -54,6 +59,10 @@
   - **Está limitado a la capacidad de un único servidor**. A medida que se escalan verticalmente, hay límites físicos para mejorar un solo servidor. Eventualmente, se alcanzará un punto en el que no se puedan agregar más recursos.
   - **No aporta beneficios en relación a la alta disponibilidad**. Añadir recursos a un servidor en funcionamiento puede requerir tiempos de inactividad o interrupciones temporales, lo que puede afectar la disponibilidad del servicio.
 
+<p align="center">
+<img src="./assets/escalabilidad vertical.png">
+</p>
+
 ### ESCALABILIDAD HORIZONTAL
 
 - Por su parte, la escalabilidad horizontal se consigue **aumentando el número de servidores que atienden una aplicación**. Para ello, un grupo de distintos servidores se configura para atender las peticiones de manera conjunta (es lo que se denomina **cluster**) y la carga de trabajo se distribuye entre ellos a través de un **balanceador**. Cada uno de esos servidores se conoce como **nodo** y el escalado se realiza simplemente agregando un nuevo nodo al cluster.
@@ -67,6 +76,10 @@
   - **Requiere mayor configuración, que puede llegar a ser difícil de realizar**. La implementación de la escalabilidad horizontal a menudo requiere una arquitectura específica y una configuración cuidadosa para garantizar un rendimiento óptimo.
   - **Necesidad de un diseño específico**. Necesita que la aplicación esté construida de modo que soporte escalabilidad vertical, lo que puede requerir modificaciones en el diseño original.
   - **Opción menos económica**. Aunque más potente y de mejor rendimiento, suele ser una opción menos económica, ya que requiere de varios servidores.
+
+<p align="center">
+<img src="./assets/escalabilidad horizontal.png">
+</p>
 
 ## 🎯 IMPORTANTE
 
