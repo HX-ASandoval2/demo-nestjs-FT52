@@ -7,6 +7,13 @@ import { TodosModule } from './modules/todos.module';
 @Module({
   imports: [UsersModule, TodosModule],
   controllers: [AppController],
-  providers: [AppService],
+  // providers: [AppService],// Declaración reducida
+  providers: [
+    //Declaración extendida
+    {
+      provide: AppService,
+      useClass: AppService,
+    },
+  ],
 })
 export class AppModule {}

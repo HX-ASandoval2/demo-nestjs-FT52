@@ -1,8 +1,10 @@
 import { Injectable } from '@nestjs/common';
+import { TodoRepository } from 'src/repositories/todos.repository';
 
 @Injectable()
 export class TodoService {
-  getTodos(): string {
-    return 'Get all todos';
+  constructor(private readonly todoRepository: TodoRepository) {}
+  getTodos(): any {
+    return this.todoRepository.getTodos();
   }
 }
