@@ -15,4 +15,16 @@ export class UserService {
       ? allUsers
       : 'No tienes acceso a esta información';
   }
+
+  getUser(id: string) {
+    return this.userRepository.getUser(id);
+  }
+
+  getByName(name: string) {
+    return this.userRepository.getByName(name);
+  }
+
+  createUser(user: any) {
+    return this.userRepository.createUser(user);
+  }
 }
