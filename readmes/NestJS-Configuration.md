@@ -52,3 +52,6 @@ module.exports = {
 4. En "Cada ARCHIVO" seleccionar "CRLF (Select End of Line Sequence)" => LF
 
 5. npm run format y npm run lint
+
+6. Para variables que se definen pero no se usan, colocar en eslint:
+	'@typescript-eslint/no-unused-vars': ['off'],

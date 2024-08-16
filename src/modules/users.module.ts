@@ -1,7 +1,10 @@
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserController } from 'src/controllers/users.controller';
+import { User } from 'src/entities/user.entity';
 import { LoggerMiddleware } from 'src/middlewares/logger';
 import { UserRepository } from 'src/repositories/users.repository';
+import { UserDbService } from 'src/services/user-db.service';
 import { UserService } from 'src/services/users.service';
 
 // const userMockService = {
@@ -11,7 +14,7 @@ import { UserService } from 'src/services/users.service';
 const ACCESS = 'EstaEsMiSuperClaveSecreta';
 
 @Module({
-  imports: [],
+  imports: [TypeOrmModule.forFeature([User])],
   controllers: [UserController],
   // providers: [UserService, UserRepository],
   // providers: [
@@ -28,6 +31,7 @@ const ACCESS = 'EstaEsMiSuperClaveSecreta';
     },
     UserService,
     UserRepository,
+    UserDbService,
     {
       provide: 'API_USERS',
       useFactory: async () => {

@@ -15,12 +15,16 @@ import {
 } from '@nestjs/common';
 import { UserAuthGuard } from 'src/guards/user-auth.guard';
 import { DataAdderInterceptor } from 'src/interceptors/data-adder.interceptor';
+import { UserDbService } from 'src/services/user-db.service';
 import { UserService } from 'src/services/users.service';
 
 @Controller('users')
 @UseGuards(UserAuthGuard)
 export class UserController {
-  constructor(private readonly userService: UserService) {}
+  constructor(
+    private readonly userService: UserService,
+    private readonly userDBService: UserDbService,
+  ) {}
   @Get()
   getUsers(@Query('name') name: string) {
     if (name) return this.userService.getByName(name);
@@ -54,7 +58,8 @@ export class UserController {
   @UseInterceptors(DataAdderInterceptor)
   createUser(@Body() user: any, @Req() request) {
     const modifiedUser = { ...user, createdAt: request.now };
-    return this.userService.createUser(modifiedUser);
+    return this.userDBService.create(modifiedUser);
+    // return this.userService.createUser(modifiedUser);
   }
 
   @Put()
