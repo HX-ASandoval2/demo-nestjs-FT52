@@ -7,4 +7,8 @@ export class TodoService {
   getTodos(): any {
     return this.todoRepository.getTodos();
   }
+
+  createTodo(todo) {
+    return this.todoRepository.createTodo(todo);
+  }
 }

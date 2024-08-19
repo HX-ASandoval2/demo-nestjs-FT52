@@ -1,4 +1,14 @@
-import { Controller, Delete, Get, Post, Put } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+  UsePipes,
+  ValidationPipe,
+} from '@nestjs/common';
 import { TodoService } from 'src/services/todos.service';
 
 @Controller('todos')
@@ -10,9 +20,17 @@ export class TodoController {
     return this.todoService.getTodos();
   }
 
+  @Get(':id')
+  @UsePipes(new ValidationPipe({ transform: true }))
+  getTodoById(@Param('id') id: number) {
+    console.log(typeof id);
+
+    return `Este es el todo con el id ${id}`;
+  }
+
   @Post()
-  createTodo() {
-    return 'Esta ruta crea un todo';
+  createTodo(@Body() todo) {
+    return this.todoService.createTodo(todo);
   }
 
   @Put()

@@ -1,7 +1,13 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Todo } from 'src/entities/todo.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class TodoRepository {
+  constructor(
+    @InjectRepository(Todo) private todoDBRepository: Repository<Todo>,
+  ) {}
   private todos = [
     {
       id: 1,
@@ -9,21 +15,13 @@ export class TodoRepository {
       description: 'comprar pan',
       isCompleted: false,
     },
-    {
-      id: 2,
-      title: 'NestJs',
-      description: 'Continuar estudiando full',
-      isCompleted: false,
-    },
-    {
-      id: 3,
-      title: 'Ropa',
-      description: 'Lavar la ropa',
-      isCompleted: false,
-    },
   ];
 
   getTodos() {
     return this.todos;
+  }
+
+  createTodo(todo) {
+    return this.todoDBRepository.save(todo);
   }
 }

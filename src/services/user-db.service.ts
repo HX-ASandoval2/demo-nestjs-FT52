@@ -10,6 +10,12 @@ export class UserDbService {
   ) {}
 
   async create(user) {
+    // console.log(user);
+
     return await this.userDBRepository.save(user);
+  }
+
+  async getUser(id: string) {
+    return await this.userDBRepository.findOneBy({ id });
   }
 }
