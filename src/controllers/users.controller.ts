@@ -22,9 +22,10 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { UserBodyDto } from 'src/dtos/users-body.dto';
+import { UserBodyDto, UserSignDto } from 'src/dtos/users-body.dto';
 import { UserAuthGuard } from 'src/guards/user-auth.guard';
 import { DataAdderInterceptor } from 'src/interceptors/data-adder.interceptor';
+import { AuthService } from 'src/services/auth.service';
 import { CloudinaryService } from 'src/services/cloudinary.service';
 import { UserDbService } from 'src/services/user-db.service';
 import { UserService } from 'src/services/users.service';
@@ -36,6 +37,7 @@ export class UserController {
     private readonly userService: UserService,
     private readonly userDBService: UserDbService,
     private readonly cloudinaryService: CloudinaryService,
+    private readonly authService: AuthService,
   ) {}
   @Get()
   getUsers(@Query('name') name: string) {
@@ -72,8 +74,12 @@ export class UserController {
   @UseInterceptors(DataAdderInterceptor)
   createUser(@Body() user: UserBodyDto, @Req() request) {
     const modifiedUser = { ...user, createdAt: request.now };
-    return this.userDBService.create(modifiedUser);
-    // return this.userService.createUser(modifiedUser);
+    return this.authService.signUp(modifiedUser);
+  }
+
+  @Post('signin')
+  signIn(@Body() user: UserSignDto) {
+    return this.authService.signIn(user.email, user.password);
   }
 
   @Post('profile/images')
