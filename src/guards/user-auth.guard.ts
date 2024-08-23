@@ -28,7 +28,10 @@ export class UserAuthGuard implements CanActivate {
       payload.exp = new Date(payload.exp * 1000);
       payload.iat = new Date(payload.iat * 1000);
 
-      // console.log(payload.exp, payload.iat);
+      // ? Dar permisos de administrador:
+      payload.roles = ['admin'];
+
+      request.user = payload;
 
       return true;
     } catch (error) {

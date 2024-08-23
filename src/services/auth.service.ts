@@ -22,8 +22,12 @@ export class AuthService {
     if (!hashedPassword)
       throw new BadRequestException('Password could not be hashed');
 
-    this.userDBService.create({ ...user, password: hashedPassword });
-    return 'User created successfully';
+    const newUser = this.userDBService.create({
+      ...user,
+      password: hashedPassword,
+    });
+    // return 'User created successfully';
+    return newUser;
   }
 
   //? Proceso de inicio de sesión del usuario:

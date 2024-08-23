@@ -22,13 +22,16 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { UserBodyDto, UserSignDto } from 'src/dtos/users-body.dto';
-import { UserAuthGuard } from 'src/guards/user-auth.guard';
-import { DataAdderInterceptor } from 'src/interceptors/data-adder.interceptor';
-import { AuthService } from 'src/services/auth.service';
-import { CloudinaryService } from 'src/services/cloudinary.service';
-import { UserDbService } from 'src/services/user-db.service';
-import { UserService } from 'src/services/users.service';
+import { Roles } from '../decorators/roles.decorator';
+import { UserBodyDto, UserSignDto } from '../dtos/users-body.dto';
+import { RolesGuard } from '../guards/roles.guard';
+import { UserAuthGuard } from '../guards/user-auth.guard';
+import { DataAdderInterceptor } from '../interceptors/data-adder.interceptor';
+import { Role } from '../role.enum';
+import { AuthService } from '../services/auth.service';
+import { CloudinaryService } from '../services/cloudinary.service';
+import { UserDbService } from '../services/user-db.service';
+import { UserService } from '../services/users.service';
 
 @Controller('users')
 // @UseGuards(UserAuthGuard)
@@ -55,6 +58,13 @@ export class UserController {
   @UseGuards(UserAuthGuard)
   getProfilePics() {
     return 'Esta ruta devuelve las imágenes del perfil del usuario';
+  }
+
+  @Get('admin')
+  @Roles(Role.Admin) //* 'admin'
+  @UseGuards(UserAuthGuard, RolesGuard)
+  getAdmin() {
+    return 'Esta es una ruta protegida';
   }
 
   @Get(':id')

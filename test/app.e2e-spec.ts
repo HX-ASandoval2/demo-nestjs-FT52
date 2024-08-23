@@ -11,6 +11,8 @@ describe('AppController (e2e)', () => {
       imports: [AppModule],
     }).compile();
 
+    // console.log(moduleFixture);
+
     app = moduleFixture.createNestApplication();
     await app.init();
   });
@@ -20,5 +22,14 @@ describe('AppController (e2e)', () => {
       .get('/')
       .expect(200)
       .expect('Hello World!');
+  });
+
+  it('GET /users/ retorna un array de usuarios y que el código de status sea 200', async () => {
+    const req = await request(app.getHttpServer()).get('/users');
+
+    console.log(request);
+
+    expect(req.status).toBe(200);
+    expect(req.body).toBeInstanceOf(Array);
   });
 });
