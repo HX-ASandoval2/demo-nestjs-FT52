@@ -199,13 +199,14 @@ Obtenemos el nombre del contenedor de la DB:
 
 - docker ps y copiamos el nombre del contenedor de la DB
 
-Ingresamos a la consola "bash" del contenedor:
+Ingresamos a la consola del contenedor:
 
-- docker exec -it <nombre_contenedor_db> bash
+- docker exec -it <nomnbreContenedor> psql -U postgres
 
-Ingresamos a la consola psql:
+Nos conectamos a la DB
 
-- psql -U <usuario> -d <base_de_datos>
+- \l para listar DB
+- \c <nombreDB>
 
 Obtenemos las tablas e información de la tabla users:
 

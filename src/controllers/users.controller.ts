@@ -32,7 +32,7 @@ import { AuthService } from '../services/auth.service';
 import { CloudinaryService } from '../services/cloudinary.service';
 import { UserDbService } from '../services/user-db.service';
 import { UserService } from '../services/users.service';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiQuery, ApiTags } from '@nestjs/swagger';
 
 @ApiTags('users')
 @Controller('users')
@@ -45,9 +45,10 @@ export class UserController {
     private readonly authService: AuthService,
   ) {}
   @Get()
+  @ApiQuery({ name: 'name', required: false })
   getUsers(@Query('name') name: string) {
-    if (name) return this.userService.getByName(name);
-    return this.userService.getUsers();
+    if (name) return this.userDBService.getUserByName(name);
+    return this.userDBService.getUsers();
   }
 
   @Get('profile')

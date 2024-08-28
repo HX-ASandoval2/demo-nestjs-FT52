@@ -9,8 +9,16 @@ export class UserDbService {
     @InjectRepository(User) private userDBRepository: Repository<User>,
   ) {}
 
-  async create(user) {
+  async create(user: User) {
     return await this.userDBRepository.save(user);
+  }
+
+  async getUsers() {
+    return await this.userDBRepository.find();
+  }
+
+  async getUserByName(name: string) {
+    return await this.userDBRepository.findOneBy({ name });
   }
 
   async getUser(id: string) {
